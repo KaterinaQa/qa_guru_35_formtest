@@ -15,7 +15,7 @@ import static com.codeborne.selenide.Selenide.*;
 public class PracticeFormTest {
 
     @BeforeAll
-    static void beforeAll() {
+    static void setBrowserConfig() {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
@@ -25,6 +25,8 @@ public class PracticeFormTest {
     @Test
     void fillFormTest() {
         open("/automation-practice-form");
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
         $("#firstName").setValue("Raccoon");
         $("#lastName").setValue("Qa");
         $("#userEmail").setValue("test@test.com");
@@ -38,7 +40,7 @@ public class PracticeFormTest {
         $("#subjectsInput").setValue("Maths").pressEnter();
         $("#hobbiesWrapper").$(byText("Sports")).click();
         $("#hobbiesWrapper").$(byText("Music")).click();
-        $("#uploadPicture").uploadFile(new File("src/test/resources/mem_1.jpg"));
+        $("#uploadPicture").uploadFromClasspath("mem_1.jpg");
         $("#currentAddress").setValue("Current Address");
         $("#react-select-3-input").setValue("NCR").pressEnter();
         $("#react-select-4-input").setValue("Delhi").pressEnter();
